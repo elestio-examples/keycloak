@@ -3,7 +3,6 @@ services:
 
   postgresql:
     image: docker.io/bitnami/postgresql:13
-    container_name: postgresql
     restart: always
     env_file:
       - .env
@@ -14,7 +13,6 @@ services:
 
   keycloak:
     image: docker.io/bitnami/keycloak:${SOFTWARE_VERSION_TAG}
-    container_name: keycloak
     restart: always
     env_file:
       - .env
@@ -26,8 +24,9 @@ services:
       - KEYCLOAK_DATABASE_PASSWORD=$POSTGRESQL_PASSWORD
       - KEYCLOAK_DATABASE_SCHEMA=public
       - PROXY_ADDRESS_FORWARDING=true
-    volumes:
-      - ./init-scripts:/docker-entrypoint-initdb.d
+      - KEYCLOAK_PRODUCTION=true
+      - KEYCLOAK_PROXY=edge
+      - KEYCLOAK_EXTRA_ARGS=--auto-build --db=postgres 
     depends_on:
       - postgresql
     networks:
