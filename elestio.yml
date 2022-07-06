@@ -32,6 +32,8 @@ environments:
     value: "5432"
   - key: "KEYCLOAK_ENABLE_STATISTICS"
     value: "true"
+  - key: "ADMIN_LOGIN"
+    value: "root" 
 config:
   runTime: "dockerCompose"
   version: ""
