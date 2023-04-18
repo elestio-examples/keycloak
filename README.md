@@ -6,7 +6,7 @@ Example CI/CD pipeline showing how to deploy a keycloak instance to elestio.
 
 # Once deployed ...
 
-You can can open keycloak web UI here:
+You can open keycloak web UI here:
 
     https://[CI_CD_DOMAIN]/
     Login: root
