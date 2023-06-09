@@ -54,4 +54,4 @@ webUI:
   - url: "https://[CI_CD_DOMAIN]"
     label: "Admin Console"
     username: "[ADMIN_LOGIN]"
-    password: "[ADMIN_PASSWORD]"
+    password: "[SOFTWARE_PASSWORD]"
