@@ -27,6 +27,7 @@ services:
       - KEYCLOAK_PRODUCTION=true
       - KEYCLOAK_PROXY=edge
       - KEYCLOAK_EXTRA_ARGS=--auto-build --db=postgres 
+      - JAVA_OPTS=-XX:MaxRAMPercentage=75.0
     depends_on:
       - postgresql
     networks:
