@@ -10,7 +10,7 @@
 
 [Keycloak](https://github.com/keycloak/keycloak) is an open source software product to allow single sign-on with identity and access management aimed at modern applications and services.
 
-Deploy a <a target="_blank" href="https://elest.io/open-source/keycloak">fully managed keycoak</a> on <a target="_blank" href="https://elest.io/">elest.io</a> if you want automated backups, reverse proxy with SSL termination, firewall, automated OS & Software updates, and a team of Linux experts and open source enthusiasts to ensure your services are always safe, and functional.
+Deploy a <a target="_blank" href="https://elest.io/open-source/keycloak">fully managed keycloak</a> on <a target="_blank" href="https://elest.io/">elest.io</a> if you want automated backups, reverse proxy with SSL termination, firewall, automated OS & Software updates, and a team of Linux experts and open source enthusiasts to ensure your services are always safe, and functional.
 
 [![deploy](https://github.com/elestio-examples/keycloak/raw/main/deploy-on-elestio.png)](https://dash.elest.io/deploy?source=cicd&social=dockerCompose&url=https://github.com/elestio-examples/keycloak)
 
