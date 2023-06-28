@@ -2,26 +2,29 @@ version: '3.3'
 services:
 
   postgresql:
-    image: docker.io/bitnami/postgresql:13
+    image: postgres:13
     restart: always
     env_file:
       - .env
     volumes:
-      - ./postgresql_data:/bitnami/postgresql
+      - ./postgres_data:/var/lib/postgresql/data
     networks:
       - keycloak-network
 
   keycloak:
     image: elestio4test/keycloak:${SOFTWARE_VERSION_TAG}
     restart: always
+    entrypoint: '/opt/keycloak/bin/kc.sh start --optimized --hostname-strict=false --http-enabled=true'
     env_file:
       - .env
     ports:
       - '172.17.0.1:8080:8080'
     environment:
-      - KEYCLOAK_DATABASE_NAME=$POSTGRESQL_DATABASE
-      - KEYCLOAK_DATABASE_USER=$POSTGRESQL_USERNAME
-      - KEYCLOAK_DATABASE_PASSWORD=$POSTGRESQL_PASSWORD
+      - KEYCLOAK_ADMIN=$KEYCLOAK_ADMIN_USER
+      - KEYCLOAK_PASSWORD=$KEYCLOAK_ADMIN_PASSWORD
+      - KEYCLOAK_DATABASE_NAME=$POSTGRES_DB
+      - KEYCLOAK_DATABASE_USER=$POSTGRES_USER
+      - KEYCLOAK_DATABASE_PASSWORD=$POSTGRES_PASSWORD
       - KEYCLOAK_DATABASE_SCHEMA=public
       - PROXY_ADDRESS_FORWARDING=true
       - KEYCLOAK_PRODUCTION=true
