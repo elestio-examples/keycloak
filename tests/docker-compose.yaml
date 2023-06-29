@@ -14,22 +14,28 @@ services:
   keycloak:
     image: elestio4test/keycloak:${SOFTWARE_VERSION_TAG}
     restart: always
-    entrypoint: '/opt/keycloak/bin/kc.sh start --optimized --hostname-strict=false --http-enabled=true --proxy edge'
+    entrypoint: '/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-enabled=true --proxy edge'
     env_file:
       - .env
     ports:
       - '172.17.0.1:8080:8080'
     environment:
+      - KEYCLOAK_LOGLEVEL=ALL
+      - QUARKUS_TRANSACTION_MANAGER_ENABLE_RECOVERY=true
+      - PROXY_ADDRESS_FORWARDING=true
+      - KEYCLOAK_HTTP_ENABLED=true
       - KEYCLOAK_ADMIN=$KEYCLOAK_ADMIN_USER
       - KEYCLOAK_PASSWORD=$KEYCLOAK_ADMIN_PASSWORD
-      - KEYCLOAK_DATABASE_NAME=$POSTGRES_DB
-      - KEYCLOAK_DATABASE_USER=$POSTGRES_USER
-      - KEYCLOAK_DATABASE_PASSWORD=$POSTGRES_PASSWORD
-      - KEYCLOAK_DATABASE_SCHEMA=public
-      - PROXY_ADDRESS_FORWARDING=true
+      - KC_DB_USERNAME=$POSTGRES_USER
+      - KC_DB_PASSWORD=$POSTGRES_PASSWORD
+      - KC_DB=postgres
+      - KC_DB_URL_HOST=postgresql
+      - KC_DB_URL_DATABASE=$POSTGRES_DB
+      - KC_DB_URL_PORT=5432
+      - KC_DB_SCHEMA=public
       - KEYCLOAK_PRODUCTION=true
       - KEYCLOAK_PROXY=edge
-      - KEYCLOAK_EXTRA_ARGS=--auto-build --db=postgres
+      - KEYCLOAK_EXTRA_ARGS=--auto-build
       - JAVA_OPTS=-XX:MaxRAMPercentage=75.0
     depends_on:
       - postgresql
