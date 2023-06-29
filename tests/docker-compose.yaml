@@ -2,7 +2,7 @@ version: '3.3'
 services:
 
   postgresql:
-    image: postgres:13
+    image: postgres:15
     restart: always
     env_file:
       - .env
@@ -14,7 +14,7 @@ services:
   keycloak:
     image: elestio4test/keycloak:${SOFTWARE_VERSION_TAG}
     restart: always
-    entrypoint: '/opt/keycloak/bin/kc.sh start --optimized --hostname-strict=false --http-enabled=true'
+    entrypoint: '/opt/keycloak/bin/kc.sh start --optimized --hostname-strict=false --http-enabled=true --proxy edge'
     env_file:
       - .env
     ports:
