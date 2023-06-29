@@ -49,45 +49,71 @@ You can access the Web UI at: `http://your-domain:8080`
 
 Here are some example snippets to help you get started creating a container.
 
-    version: '3.3'
+    version: "3.3"
     services:
 
-    postgresql:
-        image: docker.io/bitnami/postgresql:13
-        restart: always
-        env_file:
-        - .env
-        volumes:
-        - ./postgresql_data:/bitnami/postgresql
+        postgresql:
+            image: postgres:15
+            restart: always
+            env_file:
+                - .env
+            volumes:
+                - ./postgres_data:/var/lib/postgresql/data
+            networks:
+                - keycloak-network
+
+        keycloak:
+            image: elestio4test/keycloak:${SOFTWARE_VERSION_TAG}
+            restart: always
+            entrypoint: "/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-enabled=true --proxy edge"
+            env_file:
+                - .env
+            ports:
+                - "172.17.0.1:8080:8080"
+            environment:
+                - KEYCLOAK_LOGLEVEL=ALL
+                - QUARKUS_TRANSACTION_MANAGER_ENABLE_RECOVERY=true
+                - PROXY_ADDRESS_FORWARDING=true
+                - KEYCLOAK_HTTP_ENABLED=true
+                - KEYCLOAK_ADMIN=$KEYCLOAK_ADMIN_USER
+                - KEYCLOAK_PASSWORD=$KEYCLOAK_ADMIN_PASSWORD
+                - KC_DB_USERNAME=$POSTGRES_USER
+                - KC_DB_PASSWORD=$POSTGRES_PASSWORD
+                - KC_DB=postgres
+                - KC_DB_URL_HOST=postgresql
+                - KC_DB_URL_DATABASE=$POSTGRES_DB
+                - KC_DB_URL_PORT=5432
+                - KC_DB_SCHEMA=public
+                - KEYCLOAK_PRODUCTION=true
+                - KEYCLOAK_PROXY=edge
+                - KEYCLOAK_EXTRA_ARGS=--auto-build
+                - JAVA_OPTS=-XX:MaxRAMPercentage=75.0
+            depends_on:
+                - postgresql
+            networks:
+                - keycloak-network
+
         networks:
-        - keycloak-network
+        keycloak-network:
+            driver: bridge
 
-    keycloak:
-        image: elestio4test/keycloak:${SOFTWARE_VERSION_TAG}
-        restart: always
-        env_file:
-        - .env
-        ports:
-        - '172.17.0.1:8080:8080'
-        environment:
-        - KEYCLOAK_DATABASE_NAME=$POSTGRESQL_DATABASE
-        - KEYCLOAK_DATABASE_USER=$POSTGRESQL_USERNAME
-        - KEYCLOAK_DATABASE_PASSWORD=$POSTGRESQL_PASSWORD
-        - KEYCLOAK_DATABASE_SCHEMA=public
-        - PROXY_ADDRESS_FORWARDING=true
-        - KEYCLOAK_PRODUCTION=true
-        - KEYCLOAK_PROXY=edge
-        - KEYCLOAK_EXTRA_ARGS=--auto-build --db=postgres 
-        - JAVA_OPTS=-XX:MaxRAMPercentage=75.0
-        depends_on:
-        - postgresql
-        networks:
-        - keycloak-network
+### Environment variables
 
-    networks:
-    keycloak-network:
-        driver: bridge
-
+|           Variable           |    Value (example)     |
+| :--------------------------: | :--------------------: |
+|     SOFTWARE_VERSION_TAG     |         latest         |
+|      SOFTWARE_PASSWORD       | Q6WZFax1-YB7g-tYh2AXqF |
+|     POSTGRES_DB=keycloak     |
+|        POSTGRES_USER         |      bn_keycloak       |
+|      POSTGRES_PASSWORD       | Q6WZFax1-YB7g-tYh2AXqF |
+|     KEYCLOAK_ADMIN_USER      |          root          |
+|   KEYCLOAK_ADMIN_PASSWORD    | Q6WZFax1-YB7g-tYh2AXqF |
+|   KEYCLOAK_MANAGEMENT_USER   |        manager         |
+| KEYCLOAK_MANAGEMENT_PASSWORD | Q6WZFax1-YB7g-tYh2AXqF |
+|    KEYCLOAK_DATABASE_HOST    |       postgresql       |
+|    KEYCLOAK_DATABASE_PORT    |          5432          |
+|  KEYCLOAK_ENABLE_STATISTICS  |          true          |
+|         ADMIN_LOGIN          |          root          |
 
 # Maintenance
 
