@@ -103,7 +103,7 @@ Here are some example snippets to help you get started creating a container.
 | :--------------------------: | :--------------------: |
 |     SOFTWARE_VERSION_TAG     |         latest         |
 |      SOFTWARE_PASSWORD       | Q6WZFax1-YB7g-tYh2AXqF |
-|     POSTGRES_DB=keycloak     |
+|         POSTGRES_DB          |        keycloak        |
 |        POSTGRES_USER         |      bn_keycloak       |
 |      POSTGRES_PASSWORD       | Q6WZFax1-YB7g-tYh2AXqF |
 |     KEYCLOAK_ADMIN_USER      |          root          |
