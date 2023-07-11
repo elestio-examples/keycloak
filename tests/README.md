@@ -34,11 +34,6 @@ Copy the .env file from tests folder to the project directory
 
 Edit the .env file with your own values.
 
-Create data folders with correct permissions
-
-    mkdir -p ./postgresql_data;
-    chown -R 1001:1001 ./postgresql_data;
-
 Run the project with the following command
 
     docker-compose up -d
@@ -104,7 +99,7 @@ Here are some example snippets to help you get started creating a container.
 |     SOFTWARE_VERSION_TAG     |         latest         |
 |      SOFTWARE_PASSWORD       | Q6WZFax1-YB7g-tYh2AXqF |
 |         POSTGRES_DB          |        keycloak        |
-|        POSTGRES_USER         |      bn_keycloak       |
+|        POSTGRES_USER         |        keycloak        |
 |      POSTGRES_PASSWORD       | Q6WZFax1-YB7g-tYh2AXqF |
 |     KEYCLOAK_ADMIN_USER      |          root          |
 |   KEYCLOAK_ADMIN_PASSWORD    | Q6WZFax1-YB7g-tYh2AXqF |
