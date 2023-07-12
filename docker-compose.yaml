@@ -11,7 +11,7 @@ services:
       - keycloak-network
 
   keycloak:
-    image: elestio4test/keycloak:${SOFTWARE_VERSION_TAG}
+    image: elestio/keycloak:${SOFTWARE_VERSION_TAG}
     restart: always
     entrypoint: "/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-enabled=true --proxy edge"
     env_file:
