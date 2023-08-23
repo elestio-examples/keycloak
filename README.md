@@ -11,3 +11,9 @@ You can open keycloak web UI here:
     https://[CI_CD_DOMAIN]/
     Login: root
     password: [SOFTWARE_PASSWORD] (set in env var)
+
+You can open pgAdmin web UI here:
+
+    URL: https://[CI_CD_DOMAIN]:8443
+    email: [ADMIN_EMAIL]
+    password: [SOFTWARE_PASSWORD]

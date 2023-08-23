@@ -5,12 +5,15 @@ services:
     restart: always
     env_file:
       - .env
+    ports:
+      - 172.17.0.1:5672:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
     networks:
       - keycloak-network
 
   keycloak:
+    user: 0:0
     image: elestio/keycloak:${SOFTWARE_VERSION_TAG}
     restart: always
     entrypoint: "/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-enabled=true --proxy edge"
@@ -40,6 +43,18 @@ services:
       - postgresql
     networks:
       - keycloak-network
+
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${SOFTWARE_PASSWORD}
+      PGADMIN_LISTEN_PORT: 8080
+    ports:
+      - "172.17.0.1:8095:8080"
+    volumes:
+      - ./servers.json:/pgadmin4/servers.json
 
 networks:
   keycloak-network:
