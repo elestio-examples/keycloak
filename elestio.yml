@@ -31,7 +31,7 @@ environments:
   - key: "POSTGRES_DB"
     value: "keycloak"
   - key: "POSTGRES_USER"
-    value: "keycloak"
+    value: "postgres"
   - key: "POSTGRES_PASSWORD"
     value: "random_password"
   - key: "KEYCLOAK_ADMIN_USER"
