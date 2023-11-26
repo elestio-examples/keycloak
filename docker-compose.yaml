@@ -14,7 +14,8 @@ services:
 
   keycloak:
     user: 0:0
-    image: elestio/keycloak:${SOFTWARE_VERSION_TAG}
+    #image: elestio/keycloak:${SOFTWARE_VERSION_TAG}
+    image: quay.io/keycloak/keycloak:22.0
     restart: always
     entrypoint: "/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-enabled=true --proxy edge"
     env_file:
