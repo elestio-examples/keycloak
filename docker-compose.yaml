@@ -17,6 +17,9 @@ services:
     image: elestio/keycloak:${SOFTWARE_VERSION_TAG}
     restart: always
     entrypoint: "/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-enabled=true --proxy edge"
+    volumes:
+      - ./providers:/opt/keycloak/providers
+      - ./themes:/opt/keycloak/themes
     env_file:
       - .env
     ports:
