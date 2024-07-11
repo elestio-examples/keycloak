@@ -1,8 +1,8 @@
 set -o allexport; source .env; set +o allexport;
 
 
-echo "Waiting for redis insight to be ready ..."
-sleep 30s;
+echo "Waiting for software to be ready ..."
+sleep 90s;
 
 docker-compose exec -T postgresql bash -c "psql -U postgres postgres <<EOF
     \c keycloak
