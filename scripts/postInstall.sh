@@ -2,7 +2,7 @@ set -o allexport; source .env; set +o allexport;
 
 
 echo "Waiting for software to be ready ..."
-sleep 90s;
+sleep 150s;
 
 docker-compose exec -T postgresql bash -c "psql -U postgres postgres <<EOF
     \c keycloak

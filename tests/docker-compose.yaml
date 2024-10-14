@@ -13,7 +13,7 @@ services:
   keycloak:
     image: elestio4test/keycloak:${SOFTWARE_VERSION_TAG}
     restart: always
-    entrypoint: "/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-enabled=true --proxy edge"
+    entrypoint: "/opt/keycloak/bin/kc.sh start --hostname-strict=false --http-enabled=true --proxy-headers=xforwarded"
     env_file:
       - .env
     ports:
