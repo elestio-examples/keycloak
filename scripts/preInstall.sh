@@ -11,7 +11,7 @@ cat <<EOT > ./servers.json
             "Port": 5672,
             "MaintenanceDB": "postgres",
             "SSLMode": "prefer",
-            "Username": "postgres",
+            "Username": "keycloak",
             "PassFile": "/pgpass"
         }
     }
